@@ -99,6 +99,7 @@ def get_pizzas():
 
 # Route to create a restaurant_pizza relationship
 @app.route("/restaurant_pizzas", methods=["POST"])
+@app.route("/restaurant_pizzas", methods=["POST"])
 def create_restaurant_pizza():
     data = request.get_json()
     price = data.get("price")
@@ -106,7 +107,7 @@ def create_restaurant_pizza():
     restaurant_id = data.get("restaurant_id")
 
     if price < 1 or price > 30:
-        return jsonify({"error": "Price must be between 1 and 30"}), 400
+        return jsonify({"errors": ["validation errors"]}), 400
 
     try:
         new_restaurant_pizza = RestaurantPizza(price=price, pizza_id=pizza_id, restaurant_id=restaurant_id)
