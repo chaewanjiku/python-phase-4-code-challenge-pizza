@@ -99,7 +99,6 @@ def get_pizzas():
 
 # Route to create a restaurant_pizza relationship
 @app.route("/restaurant_pizzas", methods=["POST"])
-@app.route("/restaurant_pizzas", methods=["POST"])
 def create_restaurant_pizza():
     data = request.get_json()
     price = data.get("price")
@@ -116,5 +115,3 @@ def create_restaurant_pizza():
         return jsonify(new_restaurant_pizza.to_dict()), 201
     except Exception as e:
         return jsonify({"error": "Internal Server Error"}), 500
-if __name__ == "__main__":
-    app.run(port=5555, debug=True)
