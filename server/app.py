@@ -71,15 +71,13 @@ def get_restaurant(id):
 # Route to delete a restaurant
 @app.route('/restaurants/<int:id>', methods=['DELETE'])
 def delete_restaurant(id):
-    restaurant = Restaurant.query.get(id)
-
+    restaurant = db.session.get(Restaurant, id)
     if restaurant is None:
         return jsonify({"error": "Restaurant not found"}), 404
-
+    
     db.session.delete(restaurant)
     db.session.commit()
-
-    return jsonify({}), 204
+    return '', 204
 
 # Route to retrieve pizzas
 @app.route('/pizzas', methods=['GET'])
@@ -115,3 +113,8 @@ def create_restaurant_pizza():
         return jsonify(new_restaurant_pizza.to_dict()), 201
     except Exception as e:
         return jsonify({"error": "Internal Server Error"}), 500
+    
+if __name__ == "__main__":
+    app.run(port=5555, debug=True)
+    
+
